@@ -34,13 +34,13 @@ jobs:
         LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
       run: python main.py
 
-      - name: Commit time.txt to repo
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+    - name: Commit time.txt to repo
+      if: success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
           
           # 如果 time.txt 不存在，说明是第一次运行
           if [ ! -f time.txt ]; then
@@ -59,11 +59,11 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: Upload screenshots on failure
+    - name: Upload screenshots on failure
         # 仅在工作流的任何一个步骤失败时执行
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots-on-failure
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: screenshots-on-failure
           # 匹配所有以 .png 结尾的文件，这些是我们脚本中保存的截图
-          path: "*.png"
+        path: "*.png"
