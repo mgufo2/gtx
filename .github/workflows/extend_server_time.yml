@@ -25,6 +25,7 @@ jobs:
       run: |
         pip install playwright
         playwright install chromium # 安装 Chromium 浏览器
+
     - name: Run Python script
       env:
         # 确保在 GitHub Secrets 中设置这些变量
